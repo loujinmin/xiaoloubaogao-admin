@@ -10,7 +10,17 @@
             <h2>后台管理系统</h2>
           </el-col>
           <el-col :span="4">
-            <el-button class="btn-text" type="text" text>哈哈</el-button>
+            <el-dropdown>
+              <el-button type="primary">
+                选项
+              </el-button>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="iFn">首页</el-dropdown-item>
+                  <el-dropdown-item @click="cFn">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </el-col>
         </el-row>
       </el-header>
@@ -39,18 +49,29 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import {useRouter, useRoute} from 'vue-router';
+import { useRouter, useRoute } from 'vue-router'
 
 export default defineComponent({
   setup() {
     const router = useRouter()
     const route = useRoute()
     const list = router.getRoutes().filter(item => item.meta.isShow)
-    console.log(route.path);
-    
+    console.log(route.path)
+
+    function cFn(){
+      localStorage.removeItem('token')
+      router.push('/login')
+    }
+
+    const iFn = () => {
+      router.push('/order')
+    }
+
     return {
       list,
-      active: route.path
+      active: route.path,
+      cFn,
+      iFn
     }
   }
 })
@@ -68,14 +89,7 @@ h2 {
 .el-header {
   background-color: #545c64;
 }
-.btn-text {
-  float: right;
-  text-align: right;
-  width: 100px;
-  height: 80px;
-  line-height: 80px;
-  color: #fff;
-}
+
 .el-aside {
   .el-menu {
     height: calc(100vh - 80px);
@@ -85,5 +99,9 @@ h2 {
 .el-main {
   height: calc(100vh - 80px);
   overflow-y: auto;
+}
+
+.el-button--primary {
+  margin: 22px 0;
 }
 </style>
