@@ -29,11 +29,11 @@ export default defineComponent({
     const rules = {
       username: [
         { required: true, message: '请输入账号', trigger: 'blur' },
-        { min: 6, max: 24, message: '账号长度在6-24之间', trigger: 'blur' }
+        { min: 3, max: 12, message: '账号长度在3-12之间', trigger: 'blur' }
       ],
       password: [
         { required: true, message: '请输入密码', trigger: 'blur' },
-        { min: 6, max: 24, message: '密码长度在6-24之间', trigger: 'blur' }
+        { min: 3, max: 12, message: '密码长度在3-12之间', trigger: 'blur' }
       ]
     }
 
@@ -41,8 +41,9 @@ export default defineComponent({
       data.loginFormRef?.validate(async (valid) => {
         if(valid) {
           // alert('验证通过，发送请求')
-          const {data: res} = await login(data.loginForm)
-          localStorage.setItem('token', res.token)
+          const res = await login(data.loginForm)
+          // console.log(res);
+          localStorage.setItem('token', res?.token)
           router.push('/')
         }
       })

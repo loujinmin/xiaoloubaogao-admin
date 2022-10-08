@@ -2,19 +2,17 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
 enum MSGS {
-  '操作成功' = 200,
+  '操作成功' = 20000,
   '密码错误',
   '账号错误',
-  '请求异常'
+  '请求异常',
+  '登录失败' = 40000
 }
 
 // 创建http实例
 const $http = axios.create({
-  baseURL: 'https://www.fastmock.site/mock/323354e56ef21147c3f550e18435baa1/api',
-  timeout: 2000,
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  }
+  baseURL: 'http://43.138.110.98:7001/api',
+  timeout: 2000
 })
 
 // 请求拦截
@@ -23,7 +21,6 @@ $http.interceptors.request.use(config => {
   if(localStorage.getItem('token')){
     config.headers.token = localStorage.getItem('token') || ''
   }
-
   return config
 })
 
@@ -31,7 +28,7 @@ $http.interceptors.request.use(config => {
 $http.interceptors.response.use(res => {
   const code: number = res.data.code
   
-  if(code !== 200){
+  if(code !== 20000){
     ElMessage.error(MSGS[code])
     return Promise.reject(res.data)
   }

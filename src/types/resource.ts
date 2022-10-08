@@ -1,18 +1,15 @@
 export interface ListInt {
-  id: number
-  username: string
-}
-
-export interface FromInt {
-  username: string
-  password: string
+  title: string
+  code: string
+  url: string
 }
 
 export class InitData {
   list: ListInt[] = []
   formData = {
-    username: '',
-    password: ''
+    title: '',
+    code: '',
+    url: ''
   }
   isShow = false
   isEdit = true

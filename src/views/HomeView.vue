@@ -30,10 +30,7 @@
         <el-aside width="200px">
           <el-menu router active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" default-active="active" text-color="#fff">
             <el-menu-item v-for="i in list" :key="i.path" :index="i.path">
-              <el-icon>
-                <icon-menu />
-              </el-icon>
-              <span>{{i.meta.title}}</span>
+              <span class="title">{{i.meta.title}}</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
@@ -56,7 +53,7 @@ export default defineComponent({
     const router = useRouter()
     const route = useRoute()
     const list = router.getRoutes().filter(item => item.meta.isShow)
-    console.log(route.path)
+    // console.log(route.path)
 
     function cFn(){
       localStorage.removeItem('token')
@@ -64,7 +61,7 @@ export default defineComponent({
     }
 
     const iFn = () => {
-      router.push('/order')
+      router.push('/')
     }
 
     return {
@@ -80,6 +77,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .logo {
   height: 80px;
+  margin-left: 14px;
+}
+.title{
+  width: 200px;
+  margin-left: 30px;
 }
 h2 {
   text-align: center;
